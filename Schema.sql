@@ -50,7 +50,7 @@ CREATE TABLE `invoice_pdfs` (
   `clientName` varchar(255) NOT NULL,
   `pdfPath` varchar(255) NOT NULL,
   `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `quotationNumber` int NOT NULL AUTO_INCREMENT,
+  `quotationNumber` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `agencyNumber` (`agencyNumber`),
   CONSTRAINT `invoice_pdfs_ibfk_1` FOREIGN KEY (`agencyNumber`) REFERENCES `companies` (`agencyNumber`)
@@ -67,7 +67,7 @@ DROP TABLE IF EXISTS `quotation_pdfs`;
 CREATE TABLE `quotation_pdfs` (
   `id` int NOT NULL AUTO_INCREMENT,
   `agencyNumber` int DEFAULT NULL,
-  `quotationNumber` int NOT NULL AUTO_INCREMENT,
+  `quotationNumber` int NOT NULL ,
   `clientName` varchar(255) NOT NULL,
   `pdfPath` varchar(255) NOT NULL,
   `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
