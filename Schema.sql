@@ -36,6 +36,31 @@ CREATE TABLE `companies` (
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+
+DROP TABLE IF EXISTS `quotation_data`;
+CREATE TABLE quotation_data (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `agencyNumber` INT,
+  `quotationNumber` INT,
+  `clientName` VARCHAR(255) NOT NULL,
+  `distance` FLOAT,
+  `distanceChargePerKm` FLOAT,
+  `loadingFloor` INT,
+  `loadingFloorCharge` FLOAT,
+  `unloadingFloor` INT,
+  `unloadingFloorCharge` FLOAT,
+  `items` JSON, -- New column to store items as JSON
+  `totalCharges` FLOAT,
+  `date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `fromLocation` VARCHAR(255),
+  `toLocation` VARCHAR(255),
+  FOREIGN KEY (agencyNumber) REFERENCES companies(agencyNumber),
+  FOREIGN KEY (quotationNumber) REFERENCES quotation_pdfs(quotationNumber)
+);
+
+
+
+
 --
 -- Table structure for table `invoice_pdfs`
 --
@@ -50,7 +75,7 @@ CREATE TABLE `invoice_pdfs` (
   `clientName` varchar(255) NOT NULL,
   `pdfPath` varchar(255) NOT NULL,
   `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `quotationNumber` int NOT NULL,
+  `quotationNumber` INT NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`),
   KEY `agencyNumber` (`agencyNumber`),
   CONSTRAINT `invoice_pdfs_ibfk_1` FOREIGN KEY (`agencyNumber`) REFERENCES `companies` (`agencyNumber`)
@@ -67,7 +92,7 @@ DROP TABLE IF EXISTS `quotation_pdfs`;
 CREATE TABLE `quotation_pdfs` (
   `id` int NOT NULL AUTO_INCREMENT,
   `agencyNumber` int DEFAULT NULL,
-  `quotationNumber` int NOT NULL ,
+  `quotationNumber` int NOT NULL AUTO_INCREMENT,
   `clientName` varchar(255) NOT NULL,
   `pdfPath` varchar(255) NOT NULL,
   `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
