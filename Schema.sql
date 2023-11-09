@@ -37,26 +37,7 @@ CREATE TABLE `companies` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
-DROP TABLE IF EXISTS `quotation_data`;
-CREATE TABLE quotation_data (
-  `id` INT AUTO_INCREMENT PRIMARY KEY,
-  `agencyNumber` INT,
-  `quotationNumber` INT,
-  `clientName` VARCHAR(255) NOT NULL,
-  `distance` FLOAT,
-  `distanceChargePerKm` FLOAT,
-  `loadingFloor` INT,
-  `loadingFloorCharge` FLOAT,
-  `unloadingFloor` INT,
-  `unloadingFloorCharge` FLOAT,
-  `items` JSON, -- New column to store items as JSON
-  `totalCharges` FLOAT,
-  `date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  `fromLocation` VARCHAR(255),
-  `toLocation` VARCHAR(255),
-  FOREIGN KEY (agencyNumber) REFERENCES companies(agencyNumber),
-  FOREIGN KEY (quotationNumber) REFERENCES quotation_pdfs(quotationNumber)
-);
+
 
 
 
@@ -100,6 +81,31 @@ CREATE TABLE `quotation_pdfs` (
   KEY `agencyNumber` (`agencyNumber`),
   CONSTRAINT `quotation_pdfs_ibfk_1` FOREIGN KEY (`agencyNumber`) REFERENCES `companies` (`agencyNumber`)
 ) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+DROP TABLE IF EXISTS `quotation_data`;
+CREATE TABLE quotation_data (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `agencyNumber` INT,
+  `quotationNumber` INT,
+  `clientName` VARCHAR(255) NOT NULL,
+  `distance` FLOAT,
+  `distanceChargePerKm` FLOAT,
+  `loadingFloor` INT,
+  `loadingFloorCharge` FLOAT,
+  `unloadingFloor` INT,
+  `unloadingFloorCharge` FLOAT,
+  `items` JSON, -- New column to store items as JSON
+  `totalCharges` FLOAT,
+  `date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `fromLocation` VARCHAR(255),
+  `toLocation` VARCHAR(255),
+  FOREIGN KEY (agencyNumber) REFERENCES companies(agencyNumber),
+  FOREIGN KEY (quotationNumber) REFERENCES quotation_pdfs(quotationNumber)
+);
+
+
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
