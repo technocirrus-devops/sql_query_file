@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS `companies`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `companies` (
-  `agencyNumber` int NOT NULL AUTO_INCREMENT,
+  `agencyNumber` int NOT NULL,
   `companyName` varchar(255) NOT NULL,
   `phoneNumber` varchar(15) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -31,9 +31,10 @@ CREATE TABLE `companies` (
   `password` varchar(255) NOT NULL,
   `logoPath` varchar(255) NOT NULL,
   `templateSelection` varchar(10) DEFAULT NULL,
+  `isAdmin` boolean NOT NULL,
   `invoiceTemplateSelection` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`agencyNumber`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 
@@ -56,11 +57,11 @@ CREATE TABLE `invoice_pdfs` (
   `clientName` varchar(255) NOT NULL,
   `pdfPath` varchar(255) NOT NULL,
   `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `quotationNumber` INT NOT NULL AUTO_INCREMENT,
+  `quotationNumber` INT NOT NULL ,
   PRIMARY KEY (`id`),
   KEY `agencyNumber` (`agencyNumber`),
   CONSTRAINT `invoice_pdfs_ibfk_1` FOREIGN KEY (`agencyNumber`) REFERENCES `companies` (`agencyNumber`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +74,7 @@ DROP TABLE IF EXISTS `quotation_pdfs`;
 CREATE TABLE `quotation_pdfs` (
   `id` int NOT NULL AUTO_INCREMENT,
   `agencyNumber` int DEFAULT NULL,
-  `quotationNumber` int NOT NULL AUTO_INCREMENT,
+  `quotationNumber` int NOT NULL,
   `clientName` varchar(255) NOT NULL,
   `pdfPath` varchar(255) NOT NULL,
   `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
